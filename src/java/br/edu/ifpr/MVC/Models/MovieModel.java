@@ -8,6 +8,8 @@ import br.edu.ifpr.MVC.DAOs.MoviesDAO;
 import br.edu.ifpr.MVC.Entities.Movie;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -15,6 +17,18 @@ import java.util.ArrayList;
  */
 public class MovieModel {
     static ArrayList<Movie> movies = new ArrayList<>();
+
+    public MovieModel() {
+        MoviesDAO dao = new MoviesDAO();
+         
+        try {
+            this.movies = dao.selectAll();
+
+        } catch (Exception e) {
+            Logger.getLogger(MovieModel.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }
+
 
     public ArrayList<Movie> getMovies() {
         return movies;
@@ -26,6 +40,7 @@ public class MovieModel {
         try {
             dao.create(movie);
         } catch (SQLException e) {
+            Logger.getLogger(MovieModel.class.getName()).log(Level.SEVERE, null, e);
         }
     }
 }
