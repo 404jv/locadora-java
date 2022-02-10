@@ -4,8 +4,7 @@
  */
 package br.edu.ifpr.MVC.Controllers;
 
-import br.edu.ifpr.MVC.Entities.Movie;
-import br.edu.ifpr.MVC.Models.MovieModel;
+import br.edu.ifpr.MVC.Models.RentalModel;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -18,8 +17,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author joao
  */
-@WebServlet(name = "CreateMovieController", urlPatterns = {"/movies/create"})
-public class CreateMovieController extends HttpServlet {
+@WebServlet(name = "CreateRentalController", urlPatterns = {"/rental/create"})
+public class CreateRentalController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,20 +37,28 @@ public class CreateMovieController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet CreateMovieController</title>");            
+            out.println("<title>Servlet CreateRentalController</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet CreateMovieController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet CreateRentalController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
     }
 
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("ARQUIVO_HTML_AQUI")
-                .forward(request, response);
+        processRequest(request, response);
     }
 
     /**
@@ -65,23 +72,21 @@ public class CreateMovieController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
         request.setCharacterEncoding("UTF-8");
         response.setContentType("text/html; charset=UTF-8");
 
+        String client_cpf = request.getParameter("client_cpf");
+        String movie_title = request.getParameter("movie_title");
+        String start_date = request.getParameter("start_date");
+        String end_date = request.getParameter("end_date");
 
-        String title = request.getParameter("title");
-        int rate = Integer.parseInt(request.getParameter("rate"));
-        String duration = request.getParameter("duration");
-        float fine_amount = Float.parseFloat(request.getParameter("fine_amount"));
-        float daily_rate = Float.parseFloat(request.getParameter("daily_rate"));
-        String image_url = request.getParameter("image_url");
-
-        Movie movie = new Movie(title, rate, duration, fine_amount, image_url, daily_rate);
-
-        MovieModel model = new MovieModel();
-
-        model.create(movie);
+        RentalModel rentalModel = new RentalModel();
+ 
+        try {
+            rentalModel.create(client_cpf, movie_title, start_date, end_date);
+        } catch (Exception e) {
+            response.sendError(404, e.getMessage());
+        }
     }
 
     /**

@@ -19,8 +19,8 @@ import java.util.ArrayList;
  */
 public class MoviesDAO {
     public void create(Movie movie) throws SQLException {
-        String sql = "INSERT INTO MOVIES (TITLE, RATE, DURATION, FINE_AMOUNT, IMAGE_URL) "
-            + "VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO MOVIES (TITLE, RATE, DURATION, FINE_AMOUNT, DAILY_RATE, IMAGE_URL) "
+            + "VALUES (?, ?, ?, ?, ?, ?)";
 
 
         Connection connection = new ConnectionFactory().getConnection();
@@ -31,7 +31,8 @@ public class MoviesDAO {
         query.setInt(2, movie.getRate());
         query.setString(3, movie.getDuration());
         query.setFloat(4, movie.getFine_amount());
-        query.setString(5, movie.getImage_url());
+        query.setFloat(5, movie.getDaily_rate());
+        query.setString(6, movie.getImage_url());
 
         query.execute();
         query.close();
@@ -64,5 +65,31 @@ public class MoviesDAO {
         connection.close();
         
         return movies;
+    }
+
+    public Movie findByTitle(String title) throws SQLException {
+        Movie movie = null;
+        
+        String sql = "SELECT * FROM MOVIES WHERE TITLE = ?";
+        
+        Connection connection = new ConnectionFactory().getConnection();
+        
+        PreparedStatement stmt = connection.prepareStatement(sql);
+        
+        stmt.setString(1, title);
+        
+        ResultSet result = stmt.executeQuery();
+        
+        while(result.next()) {
+            movie = new Movie();
+            movie.setId(result.getInt("ID"));
+            movie.setTitle(result.getString("TITLE"));
+            movie.setDuration(result.getString("DURATION"));
+            movie.setFine_amount(result.getFloat("FINE_AMOUNT"));
+            movie.setImage_url(result.getString("IMAGE_URL"));
+            movie.setRate(result.getInt("RATE"));
+        }
+        
+        return movie;
     }
 }

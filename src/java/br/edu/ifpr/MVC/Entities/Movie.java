@@ -11,15 +11,25 @@ public class Movie {
     private String duration;
     private float fine_amount;
     private String image_url;
+    private Float daily_rate;
 
     public Movie() {}
 
-    public Movie(String title, int rate, String duration, float fine_amount, String image_url) {
+    public Movie(String title, int rate, String duration, float fine_amount, String image_url, Float daily_rate) {
         this.title = title;
         this.rate = rate;
         this.duration = duration;
         this.fine_amount = fine_amount;
         this.image_url = image_url;
+        this.daily_rate = daily_rate;
+    }
+
+    public Float getDaily_rate() {
+        return daily_rate;
+    }
+
+    public void setDaily_rate(Float daily_rate) {
+        this.daily_rate = daily_rate;
     }
 
     public int getId() {

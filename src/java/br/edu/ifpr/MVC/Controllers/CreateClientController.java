@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 public class CreateClientController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException {
     }
 
     @Override
