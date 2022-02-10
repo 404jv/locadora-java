@@ -16,22 +16,16 @@ import java.util.logging.Logger;
  * @author julia
  */
 public class MovieModel {
-    static ArrayList<Movie> movies = new ArrayList<>();
-
-    public MovieModel() {
-        MoviesDAO dao = new MoviesDAO();
-         
-        try {
-            this.movies = dao.selectAll();
-
-        } catch (Exception e) {
-            Logger.getLogger(MovieModel.class.getName()).log(Level.SEVERE, null, e);
-        }
-    }
-
 
     public ArrayList<Movie> getMovies() {
-        return movies;
+        MoviesDAO dao = new MoviesDAO();
+
+        try {
+            return dao.selectAll();
+        } catch (SQLException e) {
+            Logger.getLogger(MovieModel.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return null;
     }
     
     public void create(Movie movie) {
