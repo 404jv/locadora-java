@@ -20,6 +20,7 @@ public class Rental {
     private String client_name;
     private String movie_title;
     private float daily_rate;
+    private float fine_amount;
 
     public Rental() {}
 
@@ -28,6 +29,14 @@ public class Rental {
         this.movie_id = movie_id;
         this.start_date = start_date;
         this.end_date = end_date;
+    }
+
+    public float getFine_amount() {
+        return fine_amount;
+    }
+
+    public void setFine_amount(float fine_amount) {
+        this.fine_amount = fine_amount;
     }
 
     public String getMovie_title() {

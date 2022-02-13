@@ -12,10 +12,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./styles/global.css">
-  <link rel="stylesheet" href="./styles/movies.css">
   <style><%@include file="/styles/global.css"%></style>
-  <style><%@include file="/styles/movies.css"%></style>
-  <title>Filmes</title>
 </head>
 
 <body>
@@ -24,7 +21,7 @@
     <h1><span>Pobre</span>flix</h1>
 
     <div class="options">
-      <a href="#" class="option" id="selected">
+      <a href="/locadora" class="option">
         <ion-icon class="icon" name="videocam-outline"></ion-icon>
         <p>Filmes</p>
       </a>
@@ -39,7 +36,7 @@
         <p>Alugar</p>
       </a>
 
-      <a href="/locadora/clients" class="option">
+      <a href="#" class="option" id="selected">
         <ion-icon class="icon" name="person-add-outline"></ion-icon>
         <p>Clientes</p>
       </a>
@@ -52,28 +49,32 @@
       <p>Sistema da locadora de filmes.</p>
     </div>
 
-    <div class="movies-container">
-        <c:forEach var="movie" items="${movies}" >
-            <div class="movie" style="background: url(${movie.image_url}); background-position: center; background-size: cover; background-repeat: no-repeat;">
-                <p class="movie-title">${movie.title}</p>
-                
-                <div class="movie-footer">
-                  <div class="rating">
-                    <ion-icon class="movie-icon" name="star-outline"></ion-icon>
-                    <p>${movie.rate}/10</p>
-                  </div>
 
-                  <div class="duration">
-                    <ion-icon class="movie-icon" name="time-outline"></ion-icon>
-                    <p>${movie.duration}</p>
-                  </div>
-                </div>
-            </div>                   
-        </c:forEach>
-    </div>
+      <form class="form" action="/locadora/devolution" method="POST">
+      <h1 class="title">Novo cliente:</h1>
 
-    <a href="/locadora/movies" class="movie-button" href="">Adicionar filme</a>
+      <div class="inputs">
+        <input name="name" placeholder="Nome" type="text" />
+        <input name="address" placeholder="Bairro" type="text" />
+        <input name="district" placeholder="Endereço" type="text" />
+        <input name="phone" placeholder="Número de celular" type="text" />
+        <input name="cpf" placeholder="CPF" type="text" />
+
+        <button type="submit">
+          <ion-icon class="icon" name="send-outline"></ion-icon>
+          <p>
+            Enviar
+          </p>
+        </button>
+      </div>
+    </form>
+
   </div>
+    <c:if test="${param.mensagem != null}">
+        <script type="text/javascript">
+            window.alert('${param.mensagem}');           
+        </script>
+    </c:if>
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </body>

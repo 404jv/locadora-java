@@ -1,3 +1,4 @@
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
@@ -12,10 +13,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./styles/global.css">
-  <link rel="stylesheet" href="./styles/movies.css">
   <style><%@include file="/styles/global.css"%></style>
-  <style><%@include file="/styles/movies.css"%></style>
-  <title>Filmes</title>
 </head>
 
 <body>
@@ -24,7 +22,7 @@
     <h1><span>Pobre</span>flix</h1>
 
     <div class="options">
-      <a href="#" class="option" id="selected">
+      <a href="/locadora" class="option">
         <ion-icon class="icon" name="videocam-outline"></ion-icon>
         <p>Filmes</p>
       </a>
@@ -34,7 +32,7 @@
         <p>Contas</p>
       </a>
 
-      <a href="/locadora/rentals" class="option">
+      <a href="#" class="option" id="selected">
         <ion-icon class="icon" name="add-circle-outline"></ion-icon>
         <p>Alugar</p>
       </a>
@@ -52,28 +50,33 @@
       <p>Sistema da locadora de filmes.</p>
     </div>
 
-    <div class="movies-container">
-        <c:forEach var="movie" items="${movies}" >
-            <div class="movie" style="background: url(${movie.image_url}); background-position: center; background-size: cover; background-repeat: no-repeat;">
-                <p class="movie-title">${movie.title}</p>
-                
-                <div class="movie-footer">
-                  <div class="rating">
-                    <ion-icon class="movie-icon" name="star-outline"></ion-icon>
-                    <p>${movie.rate}/10</p>
-                  </div>
 
-                  <div class="duration">
-                    <ion-icon class="movie-icon" name="time-outline"></ion-icon>
-                    <p>${movie.duration}</p>
-                  </div>
-                </div>
-            </div>                   
-        </c:forEach>
-    </div>
+    <form class="form" method="POST">
+      <h1 class="title">Novo aluguel:</h1>
 
-    <a href="/locadora/movies" class="movie-button" href="">Adicionar filme</a>
+      <div class="inputs">
+        <input name="movie_title" placeholder="Nome do filme" type="text" />
+        <input name="client_cpf" placeholder="CPF do cliente" type="text" />
+        <input name="start_date" placeholder="Data inicial DD/MM/AAAA" type="text" />
+        <input name="end_date" placeholder="Data final DD/MM/AAAA" type="text" />
+
+        <button type="submit">
+          <ion-icon class="icon" name="send-outline"></ion-icon>
+          <p>
+            Enviar
+          </p>
+        </button>
+      </div>
+    </form>
+
   </div>
+        <c:if test="${param.mensagem != null}">
+            <script type="text/javascript">
+                window.alert('${param.mensagem}');           
+            </script>
+        </c:if>
+        
+        
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </body>

@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author julia
  */
-@WebServlet(name = "ListMoviesController", urlPatterns = {"/movie"})
+@WebServlet(name = "ListMoviesController", urlPatterns = {"/"})
 public class ListMoviesController extends HttpServlet {
 
     @Override

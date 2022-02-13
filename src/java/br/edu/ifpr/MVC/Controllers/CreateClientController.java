@@ -15,13 +15,14 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author joao
+ * @author julia
  */
-@WebServlet(name = "CreateClientController", urlPatterns = {"/client/create"})
+@WebServlet(name = "CreateClientController", urlPatterns = {"/clients"})
 public class CreateClientController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
+        request.getRequestDispatcher("clients.jsp").forward(request, response);
     }
 
     @Override
@@ -42,8 +43,10 @@ public class CreateClientController extends HttpServlet {
 
         try {
             clientModel.create(client);
+
+            response.sendRedirect("/locadora/clients");
         } catch (Exception e) {
-          response.sendError(400, e.getMessage());
+            response.sendRedirect("/locadora/clients?mensagem=" + e.getMessage());
         }
     }
 
